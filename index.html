@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-BR"> 
+    <head>
+        <meta charset="UTF-8" />
+        <title>Socorro Gzuz</title> 
+    </head>
+
+    <body>
+        <input type='file' id='txtFile'>
+        <hr>
+        <textarea style="width: 500px; height: 500px;" id='output'></textarea>        
+    </body>
+
+    <footer>
+        <script src="./js/FileReader.js"></script>
+
+        <script>
+            var input = document.getElementById('txtFile');
+            var output = document.getElementById('output');
+
+            var text = new TxtReader(input, output);
+
+            var meugzuz = fopen('/assemblyCode', 0);
+            console.log(meugzuz);
+
+        </script>        
+    </footer>    
+</html>
+
