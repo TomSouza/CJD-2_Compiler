@@ -38,7 +38,8 @@
               Registers
             </div>
             <div class="col" style="border: 1px solid  rgb(189, 52, 52)">
-              Canvas
+              Canvas <hr>
+              <canvas style="border: 1px solid  rgb(189, 52, 52); width: 80%; height: 70%; margin: 0 10%"></canvas>
             </div>
           </div>
         </div>
@@ -48,12 +49,18 @@
 
   <footer>
     <script src="./js/FileReader.js"></script>
+    <script src="./js/CJDReader.js"></script>
 
     <script>
       var input = document.getElementById("txtFile");
       var output = document.getElementById("output");
 
-      var text = new TxtReader(input, output);
+      new TxtReader(input, output);
+
+      output.addEventListener("focus", (event)=> {
+        var cjdReader = new CJDReader(event.target.textContent);
+      })
+
     </script>
   </footer>
 </html>

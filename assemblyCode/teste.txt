@@ -1,1 +1,16 @@
-teste pra fazer o bendito leitor daquela delicia de trabalho arretado da porra
+.data
+RESULT: DB #30, #0
+VEZES: DB #31, #3
+.enddata
+
+.code
+INICIO: LD VEZES
+        JZ FIM
+        SUB #1
+        ST VEZES
+        LD RESULT
+        ADD #2
+        ST RESULT
+        JMP INICIO
+FIM:    HALT
+.endcode

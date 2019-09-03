@@ -16,6 +16,7 @@ class TxtReader {
 
       reader.addEventListener("load", function(e) {
         this.text = out.textContent = e.target.result;
+        out.focus();
       });
       reader.readAsBinaryString(this.input.files[0]);
     }
