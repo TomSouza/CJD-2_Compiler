@@ -1,29 +1,59 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="pt-BR"> 
-    <head>
-        <meta charset="UTF-8" />
-        <title>Socorro Gzuz</title> 
-    </head>
+<html dir="ltr" lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Socorro Gzuz</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
 
-    <body>
-        <input type='file' id='txtFile'>
-        <hr>
-        <textarea style="width: 500px; height: 500px;" id='output'></textarea>        
-    </body>
+  <body>
+    <div class="container-fluid">
+      <div class="row" style="height: 100vh;">
+        <div class="col-sm" style="border: 1px solid  gray">
+          <input type="file" id="txtFile" />
 
-    <footer>
-        <script src="./js/FileReader.js"></script>
+          <textarea
+            style="width: 80%; height: 500px; margin: 15px 10%"
+            id="output"
+          ></textarea>
+        </div>
+        <div class="col-8" style="border: 1px solid  black">
+          <div
+            class="row"
+            style="border: 1px solid  rgb(76, 180, 73); height: 40%"
+          >
+            Memory
+          </div>
+          <div class="row" style="height: 60%">
+            <div class="col" style="border: 1px solid  rgb(89, 170, 199)">
+              Registers
+            </div>
+            <div class="col" style="border: 1px solid  rgb(189, 52, 52)">
+              Canvas
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 
-        <script>
-            var input = document.getElementById('txtFile');
-            var output = document.getElementById('output');
+  <footer>
+    <script src="./js/FileReader.js"></script>
 
-            var text = new TxtReader(input, output);
+    <script>
+      var input = document.getElementById("txtFile");
+      var output = document.getElementById("output");
 
-            var meugzuz = fopen('/assemblyCode', 0);
-            console.log(meugzuz);
-
-        </script>        
-    </footer>    
+      var text = new TxtReader(input, output);
+    </script>
+  </footer>
 </html>
-
