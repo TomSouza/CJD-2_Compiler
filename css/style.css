@@ -1,0 +1,18 @@
+body {
+    margin: 5vh 0;
+}
+
+#txtSelect {
+    margin: 10px 25%;
+    width: 50%;
+}
+
+#output {
+    width: 80%;
+    height: 480px;
+    margin: 15px 10%
+}
+
+#mainRow {
+    height: 90vh;
+}
