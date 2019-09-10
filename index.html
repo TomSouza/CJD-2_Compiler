@@ -60,7 +60,8 @@
       new TxtReader(input, output);
 
       output.addEventListener("focus", (event)=> {
-        var cjdReader = new CJDReader(event.target.textContent);
+        var cjdData = new CJDReader(event.target.textContent).getCJDData();
+        console.log(cjdData);
       })
 
     </script>

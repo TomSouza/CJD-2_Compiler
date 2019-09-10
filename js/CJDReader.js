@@ -7,8 +7,11 @@ class register {
 
 class CJDReader{
   constructor(_code){
-    this.labels = {};
-    this.registers = [];
+    this.tags = {};
+    this.data = {};
+    this.memory = [];
+    this.memoryCounter = 0;
+
     this.setVars = false;
     this.setCode = false;
 
@@ -47,13 +50,33 @@ class CJDReader{
       var name = line.slice(0, line.indexOf(':'));
       var vals = line.slice(line.indexOf('#')).split(',').map((item)=>item.replace('#', '').trim());
 
-      var reg = {};
-      reg[name] = new register(vals[0], vals[1]);
-
-      this.registers.push(reg);
-
-      console.log(this.registers);
+      this.memory[vals[0]] = vals[1];
+      this.data[name] = new register(vals[0], vals[1]);
     }
 
+    if (this.setCode) {
+
+      if (line.search(':') > 0) {
+        var name = line.slice(0, line.indexOf(':'));
+        this.tags[name] = this.memoryCounter;
+        line = line.replace(name+ ': ', '').trim();
+      }
+
+      var lineParams = line.split(' ');
+
+      for (let index = 0; index < lineParams.length; index++) {
+        this.memory[this.memoryCounter + index] = lineParams[index];
+      }
+
+      this.memoryCounter += lineParams.length;
+    }
+  }
+
+  getCJDData () {
+    return {
+      data: this.data,
+      tags: this.tags,
+      memory : this.memory
+    }
   }
 }
