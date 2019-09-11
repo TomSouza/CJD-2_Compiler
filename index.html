@@ -2,16 +2,11 @@
 <html dir="ltr" lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>Socorro Gzuz</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>CJD-2_Compiler</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
+      crossorigin="anonymous" 
     />
     <link rel="stylesheet" href="./css/style.css">
   </head>
@@ -20,20 +15,18 @@
     <div class="container-fluid">
       <div class="row" id="mainRow">
         <div class="col-sm" style="border: 1px solid  gray">
+          
           <select id="txtSelect">
               <option value="">Selecione</option>
           </select>
 
-          <textarea
-            id="output"
-          ></textarea>
+          <textarea id="output"></textarea>
         </div>
         <div class="col-8" style="border: 1px solid  black">
-          <div
-            class="row"
-            style="border: 1px solid  rgb(76, 180, 73); height: 40%"
-          >
-            Memory
+          <div class="row" style="border: 1px solid  rgb(76, 180, 73); height: 40%; overflow-y: scroll;" id="memoryTable">
+            <div>
+              <h2>Memória</h2>
+            </div>
           </div>
           <div class="row" style="height: 60%">
             <div class="col" style="border: 1px solid  rgb(89, 170, 199)">
@@ -63,6 +56,38 @@
         var cjdData = new CJDReader(event.target.textContent).getCJDData();
         console.log(cjdData);
       })
+
+      // Construindo a tabela :3
+      var tableContent = document.getElementById("memoryTable");
+      var tbl = document.createElement('table');
+      var tbdy = document.createElement('tbody');
+      
+      var rows = 5;
+      var cols = 20;
+      var count = 0;
+
+      for (var i = 0; i <= rows; i++) {
+        var tr = document.createElement('tr');
+        for (var j = 0; j < cols; j++) {
+          if ( i == 2 ) {
+            break
+          } else {
+            var td = document.createElement('td');
+            td.className = "memSpace";
+            td.appendChild(document.createTextNode("" + (count++) + ""));
+            var div = document.createElement('div');
+            div.className = "memContent";
+            div.appendChild(document.createTextNode("0"));
+            td.appendChild(div);
+            tr.appendChild(td)
+            console.log("Oi " +j+ "\n");
+          }
+        }
+        tbdy.appendChild(tr);
+
+      }
+      tbl.appendChild(tbdy);
+      tableContent.appendChild(tbl)
 
     </script>
   </footer>

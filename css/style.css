@@ -16,3 +16,17 @@ body {
 #mainRow {
     height: 90vh;
 }
+
+.memSpace {
+	border: solid 2px;
+	padding: 5px;
+	font-size: 12px;
+	text-align: center;
+}
+
+.memContent{
+	border: solid 1px;
+	padding: 5px;
+	width: 50px;
+	text-align: center;
+}
