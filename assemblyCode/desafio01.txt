@@ -5,6 +5,7 @@ VEZES: DB #31, #3
 //01
 .code
 INICIO: LD VEZES
+        ST VEZES
         JZ FIM
         SUB #1
         ST VEZES

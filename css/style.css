@@ -1,32 +1,38 @@
 body {
-    margin: 5vh 0;
+  margin: 5vh 0;
 }
 
 #txtSelect {
-    margin: 10px 25%;
-    width: 50%;
+  margin: 10px 25%;
+  width: 50%;
 }
 
 #output {
-    width: 80%;
-    height: 480px;
-    margin: 15px 10%
+  width: 80%;
+  height: 480px;
+  margin: 15px 10%;
 }
 
 #mainRow {
-    height: 90vh;
+  height: 90vh;
+}
+
+#script_reader {
+  width: 20%;
+  margin: 0 40%;
+  font-size: 1em;
 }
 
 .memSpace {
-	border: solid 2px;
-	padding: 5px;
-	font-size: 12px;
-	text-align: center;
+  border: solid 2px;
+  padding: 5px;
+  font-size: 12px;
+  text-align: center;
 }
 
-.memContent{
-	border: solid 1px;
-	padding: 5px;
-	width: 50px;
-	text-align: center;
+.memContent {
+  border: solid 1px;
+  padding: 5px;
+  width: 50px;
+  text-align: center;
 }

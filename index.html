@@ -2,28 +2,37 @@
 <html dir="ltr" lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>CJD-2_Compiler</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous" 
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link rel="stylesheet" href="./css/style.css">
+    <title>CJD-2_Compiler</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
 
   <body>
     <div class="container-fluid">
       <div class="row" id="mainRow">
         <div class="col-sm" style="border: 1px solid  gray">
-          
           <select id="txtSelect">
-              <option value="">Selecione</option>
+            <option value="">Selecione</option>
           </select>
 
           <textarea id="output"></textarea>
+          <button id="script_reader">Ler Script</button>
         </div>
         <div class="col-8" style="border: 1px solid  black">
-          <div class="row" style="border: 1px solid  rgb(76, 180, 73); height: 40%; overflow-y: scroll;" id="memoryTable">
+          <div
+            class="row"
+            style="border: 1px solid  rgb(76, 180, 73); height: 40%; overflow-y: scroll;"
+            id="memoryTable"
+          >
             <div>
               <h2>Memória</h2>
             </div>
@@ -33,8 +42,11 @@
               Registers
             </div>
             <div class="col" style="border: 1px solid  rgb(189, 52, 52)">
-              Canvas <hr>
-              <canvas style="border: 1px solid  rgb(189, 52, 52); width: 80%; height: 70%; margin: 0 10%"></canvas>
+              Canvas
+              <hr />
+              <canvas
+                style="border: 1px solid  rgb(189, 52, 52); width: 80%; height: 70%; margin: 0 10%"
+              ></canvas>
             </div>
           </div>
         </div>
@@ -45,50 +57,60 @@
   <footer>
     <script src="./js/FileReader.js"></script>
     <script src="./js/CJDReader.js"></script>
+    <script src="./js/CJDCompiler.js"></script>
 
     <script>
       var input = document.getElementById("txtSelect");
       var output = document.getElementById("output");
+      var script_reader = document.getElementById("script_reader");
+      script_reader.setAttribute("disabled", true);
 
-      new TxtReader(input, output);
+      var cjdData = {};
 
-      output.addEventListener("focus", (event)=> {
-        var cjdData = new CJDReader(event.target.textContent).getCJDData();
-        console.log(cjdData);
-      })
+      var txtReader = new TxtReader(input, output);
+      var cjdReader = new CJDReader(output.textContent);
+
+      output.addEventListener("focus", event => {
+        cjdReader.readCode(event.target.textContent);
+        cjdData = cjdReader.getCJDData();
+        script_reader.removeAttribute("disabled");
+      });
+
+      script_reader.addEventListener("click", event => {
+        cjdReader.readCode(output.textContent);
+        cjdData = cjdReader.getCJDData();
+        var compiler = new CJDCompiler(cjdData);
+      });
 
       // Construindo a tabela :3
       var tableContent = document.getElementById("memoryTable");
-      var tbl = document.createElement('table');
-      var tbdy = document.createElement('tbody');
-      
+      var tbl = document.createElement("table");
+      var tbdy = document.createElement("tbody");
+
       var rows = 5;
       var cols = 20;
       var count = 0;
 
       for (var i = 0; i <= rows; i++) {
-        var tr = document.createElement('tr');
+        var tr = document.createElement("tr");
         for (var j = 0; j < cols; j++) {
-          if ( i == 2 ) {
-            break
+          if (i == 2) {
+            break;
           } else {
-            var td = document.createElement('td');
+            var td = document.createElement("td");
             td.className = "memSpace";
-            td.appendChild(document.createTextNode("" + (count++) + ""));
-            var div = document.createElement('div');
+            td.appendChild(document.createTextNode("" + count++ + ""));
+            var div = document.createElement("div");
             div.className = "memContent";
             div.appendChild(document.createTextNode("0"));
             td.appendChild(div);
-            tr.appendChild(td)
-            console.log("Oi " +j+ "\n");
+            tr.appendChild(td);
           }
         }
         tbdy.appendChild(tr);
-
       }
       tbl.appendChild(tbdy);
-      tableContent.appendChild(tbl)
-
+      tableContent.appendChild(tbl);
     </script>
   </footer>
 </html>
