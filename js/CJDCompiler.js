@@ -31,8 +31,8 @@ class CJDCompiler {
 
     this.AC = 0;
     this.PC = 0;
-    this.N = 0;
-    this.Z = 0;
+    this.N = false;
+    this.Z = false;
 
     compiler = this;
 
@@ -42,23 +42,53 @@ class CJDCompiler {
 
   Run() {
     this.functionalTable[this.cjdData.memory[this.PC]].callback();
+
+    this.N = this.AC < 0;
+    this.Z = this.AC == 0;
+
+    console.log(compiler);
   }
 
   ST() {
-    console.log("SET");
-  }
-  LD() {
-    var [load] = arguments[0];
+    var [set] = arguments[0];
+
+    if (compiler.cjdData.data.hasOwnProperty(set)) {
+      compiler.cjdData.data[set].val = compiler.AC;
+      compiler.cjdData.memory[compiler.cjdData.data[set].mem] = compiler.AC;
+    } else {
+      compiler.cjdData.memory[set] = compiler.AC;
+    }
+
     compiler.PC += arguments[0].length + 1;
   }
+
+  LD() {
+    var [load] = arguments[0];
+
+    if (compiler.cjdData.data.hasOwnProperty(load)) {
+      compiler.AC = compiler.cjdData.data[load].val;
+    } else {
+      compiler.AC = load;
+    }
+
+    compiler.PC += arguments[0].length + 1;
+  }
+
   ADD() {}
+
   SUB() {}
+
   JMP() {}
+
   JN() {}
+
   JP() {}
+
   JZ() {
     console.log("JUMP ZERO");
   }
+
   JNZ() {}
+
   HALT() {}
 }

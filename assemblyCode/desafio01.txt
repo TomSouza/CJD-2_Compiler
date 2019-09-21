@@ -4,7 +4,7 @@ VEZES: DB #31, #3
 .enddata
 //01
 .code
-INICIO: LD VEZES
+INICIO: LD RESULT
         ST VEZES
         JZ FIM
         SUB #1
