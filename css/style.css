@@ -23,6 +23,13 @@ body {
   font-size: 1em;
 }
 
+#run_step {
+  width: 30%;
+  height: 45px;
+  margin: 20px 35%;
+  font-size: 1em;
+}
+
 .memSpace {
   border: solid 2px;
   padding: 5px;

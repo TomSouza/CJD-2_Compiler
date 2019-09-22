@@ -34,21 +34,25 @@ class CJDCompiler {
     this.N = false;
     this.Z = false;
 
-    compiler = this;
+    this.interrupt = false;
 
-    this.Run();
-    this.Run();
+    compiler = this;
   }
 
+  /**
+   * Executa um passo no loop do programa
+   */
   Run() {
     this.functionalTable[this.cjdData.memory[this.PC]].callback();
 
     this.N = this.AC < 0;
     this.Z = this.AC == 0;
-
     console.log(compiler);
   }
 
+  /**
+   * Atribui o valor de AC a variavel ou posiçao de memoria desejada
+   */
   ST() {
     var [set] = arguments[0];
 
@@ -62,6 +66,9 @@ class CJDCompiler {
     compiler.PC += arguments[0].length + 1;
   }
 
+  /**
+   * Carrega para o AC o valor recebido
+   */
   LD() {
     var [load] = arguments[0];
 
@@ -74,21 +81,97 @@ class CJDCompiler {
     compiler.PC += arguments[0].length + 1;
   }
 
-  ADD() {}
+  /**
+   * Adiciona ao AC o valor recebido
+   */
+  ADD() {
+    var [add] = arguments[0];
 
-  SUB() {}
+    if (compiler.cjdData.data.hasOwnProperty(add)) {
+      compiler.AC += compiler.cjdData.data[add].val;
+    } else {
+      compiler.AC += add;
+    }
 
-  JMP() {}
-
-  JN() {}
-
-  JP() {}
-
-  JZ() {
-    console.log("JUMP ZERO");
+    compiler.PC += arguments[0].length + 1;
   }
 
-  JNZ() {}
+  /**
+   * Remove do AC o valor recebido
+   */
+  SUB() {
+    var [sub] = arguments[0];
 
-  HALT() {}
+    if (compiler.cjdData.data.hasOwnProperty(sub)) {
+      compiler.AC -= compiler.cjdData.data[sub].val;
+    } else {
+      compiler.AC -= sub;
+    }
+
+    compiler.PC += arguments[0].length + 1;
+  }
+
+  /**
+   * Faz um pulo na instrução da memoria modificando o valor de PC
+   */
+  JMP() {
+    var [position] = arguments[0];
+
+    if (compiler.cjdData.tags.hasOwnProperty(position)) {
+      compiler.PC = compiler.cjdData.tags[position];
+    } else {
+      compiler.PC = position;
+    }
+  }
+
+  /**
+   * Faz um pulo na instrução da memoria modificando o valor de PC quando o valor de AC for negativo
+   */
+  JN() {
+    var [position] = arguments[0];
+
+    if (compiler.AC < 0) {
+      compiler.JMP(position);
+    }
+  }
+
+  /**
+   * Faz um pulo na instrução da memoria modificando o valor de PC quando o valor de AC for positivo
+   */
+  JP() {
+    var [position] = arguments[0];
+
+    if (compiler.AC > 0) {
+      compiler.JMP(position);
+    }
+  }
+
+  /**
+   * Faz um pulo na instrução da memoria modificando o valor de PC quando o valor de AC for zero
+   */
+  JZ() {
+    var [position] = arguments[0];
+
+    if (compiler.AC == 0) {
+      compiler.JMP(position);
+    }
+  }
+
+  /**
+   * Faz um pulo na instrução da memoria modificando o valor de PC quando o valor de AC não for zero
+   */
+  JNZ() {
+    var [position] = arguments[0];
+
+    if (compiler.AC != 0) {
+      compiler.JMP(position);
+    }
+  }
+
+  /**
+   * Interrompe a execução do programa
+   */
+  HALT() {
+    this.interrupt = true;
+  }
 }
