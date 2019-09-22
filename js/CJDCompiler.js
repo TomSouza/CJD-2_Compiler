@@ -59,6 +59,10 @@ class CJDCompiler {
    * Executa um passo no loop do programa
    */
   Run() {
+    if (compiler.interrupt) {
+      return;
+    }
+
     this.functionalTable[this.cjdData.memory[this.PC]].callback();
 
     this.N = this.AC < 0;
@@ -209,7 +213,7 @@ class CJDCompiler {
     var [position] = arguments[0];
 
     if (compiler.AC < 0) {
-      compiler.JMP(position);
+      compiler.JMP([position]);
     }
   }
 
@@ -220,7 +224,7 @@ class CJDCompiler {
     var [position] = arguments[0];
 
     if (compiler.AC > 0) {
-      compiler.JMP(position);
+      compiler.JMP([position]);
     }
   }
 
@@ -231,7 +235,7 @@ class CJDCompiler {
     var [position] = arguments[0];
 
     if (compiler.AC == 0) {
-      compiler.JMP(position);
+      compiler.JMP([position]);
     }
   }
 
@@ -242,7 +246,7 @@ class CJDCompiler {
     var [position] = arguments[0];
 
     if (compiler.AC != 0) {
-      compiler.JMP(position);
+      compiler.JMP([position]);
     }
   }
 
