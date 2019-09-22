@@ -100,7 +100,8 @@
       var rows = 5;
       var cols = 20;
       var count = 0;
-
+      var content = "";
+      
       for (var i = 0; i <= rows; i++) {
         var tr = document.createElement("tr");
         for (var j = 0; j < cols; j++) {
@@ -112,6 +113,7 @@
             td.appendChild(document.createTextNode("" + count++ + ""));
             var div = document.createElement("div");
             div.className = "memContent";
+            //content = "" + cjdData.memory[count++];
             div.appendChild(document.createTextNode("0"));
             td.appendChild(div);
             tr.appendChild(td);
