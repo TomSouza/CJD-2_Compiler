@@ -1,6 +1,6 @@
 class register {
   constructor(_mem, _val) {
-    this.men = _mem;
+    this.mem = _mem;
     this.val = _val;
   }
 }
