@@ -40,6 +40,7 @@ class CJDCompiler {
 
     this.cjdData = _data;
     this.canvas = document.getElementById("cjd_canvas");
+    this.context = this.canvas.getContext("2d");
 
     this.AC = 0;
     this.AC2 = 0;
@@ -49,7 +50,6 @@ class CJDCompiler {
     this.Z = false;
 
     this.drawCursor = { x: 0, y: 0 };
-
     this.interrupt = false;
 
     compiler = this;
@@ -251,14 +251,29 @@ class CJDCompiler {
   }
 
   /**
-   * Posiciona o cursor de desenho ba coordenada XY definida respecticamente por AC e AC2
+   * Posiciona o cursor de desenho na coordenada XY definida respecticamente por AC e AC2
    */
-  POS() {}
+  POS() {
+    compiler.drawCursor.x = compiler.AC;
+    compiler.drawCursor.y = compiler.AC2;
+
+    compiler.PC += 2;
+  }
 
   /**
    * Desenha um pixel na posição atual com RGB definido respectivamente por AC, AC2 e AC3
    */
-  PXL() {}
+  PXL() {
+    compiler.context.fillStyle = `rgb(${compiler.AC},${compiler.AC2},${compiler.AC3})`;
+    compiler.context.fillRect(
+      compiler.drawCursor.x,
+      compiler.drawCursor.y,
+      1,
+      1
+    );
+
+    compiler.PC += 2;
+  }
 
   /**
    * Gera um valor aleatorio entre Ac e AC2 e o aplica no argumento recebido
@@ -268,7 +283,16 @@ class CJDCompiler {
   /**
    * Limpa a tela
    */
-  CLR() {}
+  CLR() {
+    compiler.context.clearRect(
+      0,
+      0,
+      compiler.canvas.width,
+      compiler.canvas.height
+    );
+
+    compiler.PC += 2;
+  }
 
   /**
    * Calcula o cosseno informado multiplicando pelo raio AC2 e o armazena em AC
