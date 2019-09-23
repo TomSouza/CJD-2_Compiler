@@ -39,8 +39,9 @@ class CJDCompiler {
     };
 
     this.cjdData = _data;
-    this.canvas = document.getElementById("cjd_canvas");
-    this.context = this.canvas.getContext("2d");
+    var canvas = document.getElementById("cjd_canvas");
+    var context = canvas.getContext("2d");
+    this.graphics = {canvas: canvas, context: context};
 
     this.AC = 0;
     this.AC2 = 0;
@@ -264,8 +265,8 @@ class CJDCompiler {
    * Desenha um pixel na posição atual com RGB definido respectivamente por AC, AC2 e AC3
    */
   PXL() {
-    compiler.context.fillStyle = `rgb(${compiler.AC},${compiler.AC2},${compiler.AC3})`;
-    compiler.context.fillRect(
+    compiler.graphics.context.fillStyle = `rgb(${compiler.AC},${compiler.AC2},${compiler.AC3})`;
+    compiler.graphics.context.fillRect(
       compiler.drawCursor.x,
       compiler.drawCursor.y,
       1,
@@ -284,11 +285,11 @@ class CJDCompiler {
    * Limpa a tela
    */
   CLR() {
-    compiler.context.clearRect(
+    compiler.graphics.context.clearRect(
       0,
       0,
-      compiler.canvas.width,
-      compiler.canvas.height
+      compiler.graphics.canvas.width,
+      compiler.graphics.canvas.height
     );
 
     compiler.PC += 2;
