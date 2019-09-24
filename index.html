@@ -40,7 +40,7 @@
           <div class="row" style="height: 60%">
             <div class="col" style="border: 1px solid  rgb(89, 170, 199)">
               <div class="row" style="height: 80%" >
-                <div id="regTable" style="padding-left: 10px;">
+                <div id="regTable" style="padding-left: 10px; overflow-y: scroll;">
                   <h2>Registers</h2> <hr>
                 </div>
 
@@ -128,6 +128,66 @@
 
         var content = "";
         
+        if(compiler != null){
+          //console.log(compiler["AC"]);
+          for(var i = 1; i <= 3; i++){
+            var tr = document.createElement("tr");
+
+            var td = document.createElement("td");
+            if(i == 1)
+              td.appendChild(document.createTextNode("AC: "));
+            else
+              td.appendChild(document.createTextNode("AC" + i +": "));
+            tr.appendChild(td);
+
+            var td = document.createElement("td");
+            if(i == 1)
+              content = compiler["AC"];
+            else
+              content = compiler["AC" + i];
+            td.appendChild(document.createTextNode(content));
+            td.className = "memSpace";
+            tr.appendChild(td);
+
+            tbdy.appendChild(tr);
+          }            
+
+          // Adding PC, N e Z
+
+          var tr = document.createElement("tr");
+          var td = document.createElement("td");
+          td.appendChild(document.createTextNode("PC: "));
+          tr.appendChild(td);
+          var td = document.createElement("td");
+          content = compiler["PC"];
+          td.appendChild(document.createTextNode(content));
+          td.className = "memSpace";
+          tr.appendChild(td);
+          tbdy.appendChild(tr);
+
+          var tr = document.createElement("tr");
+          var td = document.createElement("td");
+          td.appendChild(document.createTextNode("N: "));
+          tr.appendChild(td);
+          var td = document.createElement("td");
+          content = compiler["N"];
+          td.appendChild(document.createTextNode(content));
+          td.className = "memSpace";
+          tr.appendChild(td);
+          tbdy.appendChild(tr);
+
+          var tr = document.createElement("tr");
+          var td = document.createElement("td");
+          td.appendChild(document.createTextNode("Z: "));
+          tr.appendChild(td);
+          var td = document.createElement("td");
+          content = compiler["Z"];
+          td.appendChild(document.createTextNode(content));
+          td.className = "memSpace";
+          tr.appendChild(td);
+          tbdy.appendChild(tr);
+        }
+
         if(cjdData.data != null){
           for(var i in cjdData.data){
             var tr = document.createElement("tr");
@@ -169,10 +229,9 @@
       script_reader.addEventListener("click", event => {
         cjdReader.readCode(output.textContent);
         cjdData = cjdReader.getCJDData();
-        console.log(cjdData.data);
+        compiler = new CJDCompiler(cjdData);
         createRegisters();
         createTable();
-        var compiler = new CJDCompiler(cjdData);
       });
 
       run_step.addEventListener("click", event => {
