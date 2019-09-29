@@ -352,6 +352,6 @@ class CJDCompiler {
    * Interrompe a execução do programa
    */
   HALT() {
-    this.interrupt = true;
+    compiler.interrupt = true;
   }
 }

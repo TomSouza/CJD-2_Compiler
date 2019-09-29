@@ -71,6 +71,10 @@
     <script src="./js/CJDCompiler.js"></script>
 
     <script>
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
       var interface = new Interface();
       var input = document.getElementById("txtSelect");
       var output = document.getElementById("output");
@@ -96,19 +100,20 @@
         compiler = new CJDCompiler(cjdData);
         interface.createRegisters();
         interface.createTable();
+        interface.Update(compiler);
       });
 
       run_step.addEventListener("click", event => {
         compiler.Run();
-        interface.Update();
+        interface.Update(compiler);
       });
 
-      run_all.addEventListener("click", event => {
+      run_all.addEventListener("click", async function() {
+        console.log(compiler.interrupt);
         do {
-          setTimeout(() => {
-            compiler.Run();
-            interface.Update();
-          }, 1000);
+          compiler.Run();
+          interface.Update(compiler);
+          await sleep(1000);
         } while (!compiler.interrupt);
       });
 

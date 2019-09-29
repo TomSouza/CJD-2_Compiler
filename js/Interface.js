@@ -1,59 +1,64 @@
 class Interface {
-  constructor() {}
+  constructor() {
+    this.memoryTable = document.getElementById("memoryTable");
+    this.regTable = document.getElementById("regTable");
+  }
 
+  /**
+   * Cria tabela de espaçamento de memoria
+   */
   createTable() {
-    var elem = document.getElementById("memBody");
-    if (elem != null) elem.parentNode.removeChild(elem);
-    // Construindo a tabela :3
-    var tableContent = document.getElementById("memoryTable");
+    var memBody = document.getElementById("memBody");
+    if (memBody != null) {
+      memBody.parentNode.removeChild(memBody);
+    }
+
     var tbl = document.createElement("table");
     tbl.setAttribute("id", "memBody");
     var tbdy = document.createElement("tbody");
 
-    var rows = 5;
-    var cols = 20;
     var count = 0;
     var pcIter = 0;
     var content = "";
 
-    for (var i = 0; i <= rows; i++) {
+    for (var i = 0; i <= 5; i++) {
       var tr = document.createElement("tr");
-      for (var j = 0; j < cols; j++) {
-        if (i == 2) {
-          break;
+      for (var j = 0; j < 20; j++) {
+        var td = document.createElement("td");
+
+        td.className = "memSpace";
+        td.appendChild(document.createTextNode(`${count++}`));
+        var div = document.createElement("div");
+
+        if (cjdData.memory == null || cjdData.memory[pcIter] == null) {
+          content = "-";
+          pcIter++;
         } else {
-          var td = document.createElement("td");
-
-          td.className = "memSpace";
-          td.appendChild(document.createTextNode(`${count++}`));
-          var div = document.createElement("div");
-
-          if (cjdData.memory == null || cjdData.memory[pcIter] == null) {
-            content = "-";
-            pcIter++;
-          } else {
-            content = "" + cjdData.memory[pcIter++];
-          }
-
-          div.className = "memContent";
-          div.id = "memPos_" + (pcIter - 1);
-          div.appendChild(document.createTextNode(content));
-          td.appendChild(div);
-          tr.appendChild(td);
+          content = cjdData.memory[pcIter++];
         }
+
+        div.className = "memContent";
+        div.id = "memPos_" + (pcIter - 1);
+        div.appendChild(document.createTextNode(content));
+        td.appendChild(div);
+        tr.appendChild(td);
       }
       tbdy.appendChild(tr);
     }
+
     tbl.appendChild(tbdy);
-    tableContent.appendChild(tbl);
+    this.memoryTable.appendChild(tbl);
   }
 
+  /**
+   * Cria interface para os registradores
+   */
   createRegisters() {
-    var elem = document.getElementById("regBody");
-    if (elem != null) elem.parentNode.removeChild(elem);
-    // Construindo a tabela :3
+    var regBody = document.getElementById("regBody");
+    if (regBody != null) {
+      regBody.parentNode.removeChild(regBody);
+    }
 
-    var tableContent = document.getElementById("regTable");
     var tbl = document.createElement("table");
     tbl.setAttribute("id", "regBody");
     var tbdy = document.createElement("tbody");
@@ -61,79 +66,88 @@ class Interface {
     var content = "";
 
     if (compiler != null) {
-      //console.log(compiler["AC"]);
       for (var i = 1; i <= 3; i++) {
-        var tr = document.createElement("tr");
-
-        var td = document.createElement("td");
-        if (i == 1) td.appendChild(document.createTextNode("AC: "));
-        else td.appendChild(document.createTextNode("AC" + i + ": "));
-        tr.appendChild(td);
-
-        var td = document.createElement("td");
-        if (i == 1) content = compiler["AC"];
-        else content = compiler["AC" + i];
-        td.appendChild(document.createTextNode(content));
-        td.className = "memSpace";
-        tr.appendChild(td);
-
-        tbdy.appendChild(tr);
+        if (i == 1) {
+          this.createRegister("AC", tbdy);
+        } else {
+          this.createRegister("AC" + i, tbdy);
+        }
       }
 
-      // Adding PC, N e Z
-
-      var tr = document.createElement("tr");
-      var td = document.createElement("td");
-      td.appendChild(document.createTextNode("PC: "));
-      tr.appendChild(td);
-      var td = document.createElement("td");
-      content = compiler["PC"];
-      td.appendChild(document.createTextNode(content));
-      td.className = "memSpace";
-      tr.appendChild(td);
-      tbdy.appendChild(tr);
-
-      var tr = document.createElement("tr");
-      var td = document.createElement("td");
-      td.appendChild(document.createTextNode("N: "));
-      tr.appendChild(td);
-      var td = document.createElement("td");
-      content = compiler["N"];
-      td.appendChild(document.createTextNode(content));
-      td.className = "memSpace";
-      tr.appendChild(td);
-      tbdy.appendChild(tr);
-
-      var tr = document.createElement("tr");
-      var td = document.createElement("td");
-      td.appendChild(document.createTextNode("Z: "));
-      tr.appendChild(td);
-      var td = document.createElement("td");
-      content = compiler["Z"];
-      td.appendChild(document.createTextNode(content));
-      td.className = "memSpace";
-      tr.appendChild(td);
-      tbdy.appendChild(tr);
+      this.createRegister("PC", tbdy);
+      this.createRegister("N", tbdy);
+      this.createRegister("Z", tbdy);
     }
 
     if (cjdData.data != null) {
-      for (var i in cjdData.data) {
-        var tr = document.createElement("tr");
-
-        var td = document.createElement("td");
-        td.appendChild(document.createTextNode("" + i + ": "));
-        tr.appendChild(td);
-
-        var td = document.createElement("td");
-        content = cjdData.memory[cjdData.data[i].mem];
-        td.appendChild(document.createTextNode(content));
-        td.className = "memSpace";
-        tr.appendChild(td);
-
-        tbdy.appendChild(tr);
+      for (var index in cjdData.data) {
+        this.createRegister(
+          index,
+          tbdy,
+          cjdData.memory[cjdData.data[index].mem]
+        );
       }
     }
     tbl.appendChild(tbdy);
-    tableContent.appendChild(tbl);
+    this.regTable.appendChild(tbl);
+  }
+
+  /**
+   * Atualiza os valores apresentados na tela
+   *
+   * @param {CJDCompiler} compiler
+   */
+  Update(compiler) {
+    var olderCounter = document.getElementsByClassName("actuaPointer")[0];
+
+    if (olderCounter != undefined) {
+      olderCounter.classList.remove("actuaPointer");
+    }
+
+    var actualCounter = document.getElementById("memPos_" + compiler.PC);
+    actualCounter.classList.add("actuaPointer");
+
+    for (const key in compiler.cjdData.data) {
+      var updateField = document.getElementById(
+        "memPos_" + compiler.cjdData.data[key].mem
+      );
+      var updateRegister = document.getElementById("memPos_" + key);
+
+      updateRegister.innerText = updateField.innerText =
+        compiler.cjdData.data[key].val;
+    }
+
+    this.UpdateDefaultAttribute("AC");
+    this.UpdateDefaultAttribute("AC2");
+    this.UpdateDefaultAttribute("AC2");
+    this.UpdateDefaultAttribute("PC");
+    this.UpdateDefaultAttribute("N");
+    this.UpdateDefaultAttribute("Z");
+  }
+
+  UpdateDefaultAttribute(attribute) {
+    var att = document.getElementById("memPos_" + attribute);
+    att.innerText = compiler[attribute];
+  }
+
+  /**
+   * Cria estrutura padrão para um registrador
+   *
+   * @param {string} register
+   * @param {HTMLElement} tbdy
+   * @param {integer} value
+   */
+  createRegister(register, tbdy, value = undefined) {
+    var tr = document.createElement("tr");
+    var td = document.createElement("td");
+    td.appendChild(document.createTextNode(`${register}: `));
+    tr.appendChild(td);
+    var td = document.createElement("td");
+    content = value == undefined ? compiler[register] : value;
+    td.appendChild(document.createTextNode(content));
+    td.id = "memPos_" + register;
+    td.className = "memSpace";
+    tr.appendChild(td);
+    tbdy.appendChild(tr);
   }
 }
