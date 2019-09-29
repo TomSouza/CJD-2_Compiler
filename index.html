@@ -19,7 +19,7 @@
   <body>
     <div class="container-fluid">
       <div class="row" id="mainRow">
-        <div class="col-sm" style="border: 1px solid  gray">
+        <div class="col-3">
           <select id="txtSelect">
             <option value="">Selecione</option>
           </select>
@@ -27,22 +27,20 @@
           <textarea id="output"></textarea>
           <button id="script_reader">Ler Script</button>
         </div>
-        <div class="col-8" style="border: 1px solid  black">
+        <div class="col-9">
           <div
             class="row"
-            style="border: 1px solid  rgb(76, 180, 73); height: 40%; overflow-y: scroll;"
+            style="height: 50%; overflow-y: hidden;"
             id="memoryTable"
           >
-            <div>
-              <h2>Memória</h2>
-              <hr />
-            </div>
+            Memória
+            <hr />
           </div>
-          <div class="row" style="height: 60%">
-            <div class="col" style="border: 1px solid  rgb(89, 170, 199)">
+          <div class="row" style="height: 50%">
+            <div class="col">
               <div class="row" style="height: 80%">
                 <div id="regTable">
-                  <h2>Registers</h2>
+                  Registers
                   <hr />
                 </div>
               </div>
@@ -51,13 +49,10 @@
                 <button id="run_step">Executar um passo</button>
               </div>
             </div>
-            <div class="col" style="border: 1px solid  rgb(189, 52, 52)">
+            <div class="col">
               Canvas
               <hr />
-              <canvas
-                id="cjd_canvas"
-                style="border: 1px solid  rgb(189, 52, 52); width: 80%; height: 70%; margin: 0 10%"
-              ></canvas>
+              <canvas id="cjd_canvas"></canvas>
             </div>
           </div>
         </div>

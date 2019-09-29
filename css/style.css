@@ -9,7 +9,7 @@ body {
 
 #output {
   width: 80%;
-  height: 480px;
+  height: 75%;
   margin: 15px 10%;
 }
 
@@ -30,8 +30,14 @@ body {
   font-size: 1em;
 }
 
+#cjd_canvas {
+  border: 1px solid rgb(0, 0, 0);
+  width: 80%;
+  height: 70%;
+  margin: 0 10%;
+}
+
 .memSpace {
-  border: solid 2px;
   padding: 5px;
   font-size: 12px;
   text-align: center;
@@ -39,7 +45,7 @@ body {
 
 .memContent {
   border: solid 1px;
-  padding: 5px;
+  padding: 2.5px 1px;
   width: 50px;
   text-align: center;
 }
