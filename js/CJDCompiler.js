@@ -41,7 +41,7 @@ class CJDCompiler {
     this.cjdData = _data;
     var canvas = document.getElementById("cjd_canvas");
     var context = canvas.getContext("2d");
-    this.graphics = {canvas: canvas, context: context};
+    this.graphics = { canvas: canvas, context: context };
 
     this.AC = 0;
     this.AC2 = 0;
@@ -279,7 +279,20 @@ class CJDCompiler {
   /**
    * Gera um valor aleatorio entre Ac e AC2 e o aplica no argumento recebido
    */
-  RND() {}
+  RND() {
+    var [operator] = arguments[0];
+
+    randValue = Math.floor(Math.random() * compiler.AC2) + compiler.AC;
+
+    if (compiler.cjdData.data.hasOwnProperty(operator)) {
+      compiler.cjdData.data[operator].val = randValue;
+      compiler.cjdData.memory[compiler.cjdData.data[operator].mem] = randValue;
+    } else {
+      compiler.cjdData.memory[operator] = randValue;
+    }
+
+    compiler.PC += arguments[0].length + 1;
+  }
 
   /**
    * Limpa a tela
@@ -298,17 +311,42 @@ class CJDCompiler {
   /**
    * Calcula o cosseno informado multiplicando pelo raio AC2 e o armazena em AC
    */
-  COS() {}
+  COS() {
+    var [angle] = arguments[0];
+
+    compiler.AC = Math.cos(angle) * compiler.AC2;
+
+    compiler.PC += arguments[0].length + 1;
+  }
 
   /**
    * Calcula o seno informado multiplicando pelo raio AC2 e o armazena em AC
    */
-  SIN() {}
+  SIN() {
+    var [angle] = arguments[0];
+
+    compiler.AC = Math.sin(angle) * compiler.AC2;
+
+    compiler.PC += arguments[0].length + 1;
+  }
 
   /**
    * Realiza leitura de numeros por teclado e o aplica no argumento recebido
    */
-  IN() {}
+  IN() {
+    var [operator] = arguments[0];
+
+    var value = prompt();
+
+    if (compiler.cjdData.data.hasOwnProperty(operator)) {
+      compiler.cjdData.data[operator].val = value;
+      compiler.cjdData.memory[compiler.cjdData.data[operator].mem] = value;
+    } else {
+      compiler.cjdData.memory[operator] = value;
+    }
+
+    compiler.PC += arguments[0].length + 1;
+  }
 
   /**
    * Interrompe a execução do programa
