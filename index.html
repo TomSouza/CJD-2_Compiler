@@ -20,12 +20,12 @@
     <div class="container-fluid">
       <div class="row" id="mainRow">
         <div class="col-3">
-          <select id="txtSelect">
+          <select id="txtSelect" class="custom-select">
             <option value="">Selecione</option>
           </select>
 
-          <textarea id="output"></textarea>
-          <button id="script_reader">Ler Script</button>
+          <textarea id="output" class="form-control"></textarea>
+          <button class="btn btn-info" id="script_reader">Ler Script</button>
         </div>
         <div class="col-9">
           <div
@@ -38,15 +38,19 @@
           </div>
           <div class="row" style="height: 50%">
             <div class="col">
-              <div class="row" style="height: 80%">
-                <div id="regTable">
-                  Registers
-                  <hr />
-                </div>
+              Registers
+              <hr />
+              <div class="row" style="height: 70%">
+                <div id="regTable"></div>
               </div>
 
-              <div class="row" style="height: 20%">
-                <button id="run_step">Executar um passo</button>
+              <div class="row run_buttons" style="height: 20%">
+                <button class="btn btn-primary" id="run_step">
+                  Executar um passo
+                </button>
+                <button class="btn btn-primary" id="run_all">
+                  Executar completo
+                </button>
               </div>
             </div>
             <div class="col">
@@ -72,6 +76,7 @@
       var output = document.getElementById("output");
       var script_reader = document.getElementById("script_reader");
       var run_step = document.getElementById("run_step");
+      var run_all = document.getElementById("run_all");
       script_reader.setAttribute("disabled", true);
 
       var cjdData = {};
@@ -95,6 +100,16 @@
 
       run_step.addEventListener("click", event => {
         compiler.Run();
+        interface.Update();
+      });
+
+      run_all.addEventListener("click", event => {
+        do {
+          setTimeout(() => {
+            compiler.Run();
+            interface.Update();
+          }, 1000);
+        } while (!compiler.interrupt);
       });
 
       interface.createTable();

@@ -23,11 +23,10 @@ body {
   font-size: 1em;
 }
 
-#run_step {
+.run_buttons button {
   width: 30%;
   height: 45px;
-  margin: 20px 35%;
-  font-size: 1em;
+  margin: 5px auto;
 }
 
 #cjd_canvas {
@@ -45,7 +44,6 @@ body {
 
 .memContent {
   border: solid 1px;
-  padding: 2.5px 1px;
   width: 50px;
   text-align: center;
 }

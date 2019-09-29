@@ -23,14 +23,20 @@ class Interface {
           break;
         } else {
           var td = document.createElement("td");
+
           td.className = "memSpace";
-          td.appendChild(document.createTextNode("" + count++ + ""));
+          td.appendChild(document.createTextNode(`${count++}`));
           var div = document.createElement("div");
+
           if (cjdData.memory == null || cjdData.memory[pcIter] == null) {
             content = "-";
             pcIter++;
-          } else content = "" + cjdData.memory[pcIter++];
+          } else {
+            content = "" + cjdData.memory[pcIter++];
+          }
+
           div.className = "memContent";
+          div.id = "memPos_" + (pcIter - 1);
           div.appendChild(document.createTextNode(content));
           td.appendChild(div);
           tr.appendChild(td);
