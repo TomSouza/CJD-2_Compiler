@@ -21,7 +21,7 @@ class Interface {
     var pcIter = 0;
     var content = "";
 
-    for (var i = 0; i <= 5; i++) {
+    for (var i = 0; i <= 10; i++) {
       var tr = document.createElement("tr");
       for (var j = 0; j < 20; j++) {
         var td = document.createElement("td");
