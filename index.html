@@ -66,6 +66,9 @@
     <script src="./js/CJDCompiler.js"></script>
 
     <script>
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
       var interface = new Interface();
       var input = document.getElementById("txtSelect");
       var output = document.getElementById("output");
