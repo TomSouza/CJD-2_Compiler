@@ -5,7 +5,6 @@ class TxtReader {
     this.text = "";
 
     this.files = {
-      "teste.txt": "teste",
       "desafio01.txt": "desafio_01",
       "desafio02.txt": "desafio_02",
       "desafio03.txt": "desafio_03"
