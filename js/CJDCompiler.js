@@ -68,7 +68,6 @@ class CJDCompiler {
 
     this.N = this.AC < 0;
     this.Z = this.AC == 0;
-    console.log(compiler);
   }
 
   /**
@@ -171,9 +170,11 @@ class CJDCompiler {
     var [add] = arguments[0];
 
     if (compiler.cjdData.data.hasOwnProperty(add)) {
-      compiler.AC += compiler.cjdData.data[add].val;
+      compiler.AC = parseInt(
+        compiler.AC + parseInt(compiler.cjdData.data[add].val)
+      );
     } else {
-      compiler.AC += add;
+      compiler.AC = parseInt(compiler.AC + parseInt(add));
     }
 
     compiler.PC += arguments[0].length + 1;
@@ -186,9 +187,11 @@ class CJDCompiler {
     var [sub] = arguments[0];
 
     if (compiler.cjdData.data.hasOwnProperty(sub)) {
-      compiler.AC -= compiler.cjdData.data[sub].val;
+      compiler.AC = parseInt(
+        compiler.AC - parseInt(compiler.cjdData.data[sub].val)
+      );
     } else {
-      compiler.AC -= sub;
+      compiler.AC = parseInt(compiler.AC - parseInt(sub));
     }
 
     compiler.PC += arguments[0].length + 1;
@@ -214,8 +217,10 @@ class CJDCompiler {
     var [position] = arguments[0];
 
     if (compiler.AC < 0) {
-      compiler.JMP([position]);
+      return compiler.JMP([position]);
     }
+
+    compiler.PC += arguments[0].length + 1;
   }
 
   /**
@@ -225,8 +230,10 @@ class CJDCompiler {
     var [position] = arguments[0];
 
     if (compiler.AC > 0) {
-      compiler.JMP([position]);
+      return compiler.JMP([position]);
     }
+
+    compiler.PC += arguments[0].length + 1;
   }
 
   /**
@@ -236,8 +243,10 @@ class CJDCompiler {
     var [position] = arguments[0];
 
     if (compiler.AC == 0) {
-      compiler.JMP([position]);
+      return compiler.JMP([position]);
     }
+
+    compiler.PC += arguments[0].length + 1;
   }
 
   /**
@@ -247,8 +256,10 @@ class CJDCompiler {
     var [position] = arguments[0];
 
     if (compiler.AC != 0) {
-      compiler.JMP([position]);
+      return compiler.JMP([position]);
     }
+
+    compiler.PC += arguments[0].length + 1;
   }
 
   /**

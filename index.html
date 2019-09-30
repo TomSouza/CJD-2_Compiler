@@ -71,10 +71,6 @@
     <script src="./js/CJDCompiler.js"></script>
 
     <script>
-      function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
-
       var interface = new Interface();
       var input = document.getElementById("txtSelect");
       var output = document.getElementById("output");
@@ -86,16 +82,15 @@
       var cjdData = {};
 
       var txtReader = new TxtReader(input, output);
-      var cjdReader = new CJDReader(output.textContent);
+      var cjdReader = new CJDReader(output.value);
 
       output.addEventListener("focus", event => {
-        cjdReader.readCode(event.target.textContent);
         cjdData = cjdReader.getCJDData();
         script_reader.removeAttribute("disabled");
       });
 
       script_reader.addEventListener("click", event => {
-        cjdReader.readCode(output.textContent);
+        cjdReader.readCode(output.value);
         cjdData = cjdReader.getCJDData();
         compiler = new CJDCompiler(cjdData);
         interface.createRegisters();
