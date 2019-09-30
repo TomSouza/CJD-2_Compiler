@@ -28,19 +28,14 @@
           <button class="btn btn-info" id="script_reader">Ler Script</button>
         </div>
         <div class="col-9">
-          <div
-            class="row"
-            style="height: 50%; overflow-y: hidden;"
-            id="memoryTable"
-          >
-            Memória
-            <hr />
-          </div>
+          Memória
+          <hr />
+          <div class="row" style="height: 50%;" id="memoryTable"></div>
           <div class="row" style="height: 50%">
             <div class="col">
               Registers
               <hr />
-              <div class="row" style="height: 70%">
+              <div class="row" style="height: 55%">
                 <div id="regTable"></div>
               </div>
 
@@ -90,7 +85,7 @@
       });
 
       script_reader.addEventListener("click", event => {
-        cjdReader.readCode(output.value);
+        cjdReader = new CJDReader(output.value);
         cjdData = cjdReader.getCJDData();
         compiler = new CJDCompiler(cjdData);
         interface.createRegisters();

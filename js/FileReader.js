@@ -5,8 +5,8 @@ class TxtReader {
     this.text = "";
 
     this.files = {
-      "desafio01.txt": "desafio_01",
-      "desafio02.txt": "desafio_02",
+      "draw_Rectangle.txt": "draw_Rectangle",
+      "draw_RectangleBorder.txt": "draw_RectangleBorder",
       "desafio03.txt": "desafio_03"
     };
 

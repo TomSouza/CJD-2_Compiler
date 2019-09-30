@@ -269,7 +269,7 @@ class CJDCompiler {
     compiler.drawCursor.x = compiler.AC;
     compiler.drawCursor.y = compiler.AC2;
 
-    compiler.PC += 2;
+    compiler.PC += 1;
   }
 
   /**
@@ -284,7 +284,7 @@ class CJDCompiler {
       1
     );
 
-    compiler.PC += 2;
+    compiler.PC += 1;
   }
 
   /**

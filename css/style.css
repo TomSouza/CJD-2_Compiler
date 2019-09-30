@@ -37,14 +37,26 @@ body {
 }
 
 .memSpace {
-  padding: 5px;
+  padding: 2px 2.5px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.regLabel {
+  padding-left: 10px;
+  font-size: 12px;
+}
+
+.regSpace {
+  border-right: solid 1px;
+  padding: 5px 15px;
   font-size: 12px;
   text-align: center;
 }
 
 .memContent {
   border: solid 1px;
-  width: 50px;
+  width: 53px;
   text-align: center;
 }
 

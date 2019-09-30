@@ -2,6 +2,7 @@ class Interface {
   constructor() {
     this.memoryTable = document.getElementById("memoryTable");
     this.regTable = document.getElementById("regTable");
+    this.columns = 0;
   }
 
   /**
@@ -21,7 +22,7 @@ class Interface {
     var pcIter = 0;
     var content = "";
 
-    for (var i = 0; i <= 10; i++) {
+    for (var i = 0; i <= 7; i++) {
       var tr = document.createElement("tr");
       for (var j = 0; j < 20; j++) {
         var td = document.createElement("td");
@@ -72,11 +73,15 @@ class Interface {
         } else {
           this.createRegister("AC" + i, tbdy);
         }
+        this.columns++;
       }
 
       this.createRegister("PC", tbdy);
+      this.columns++;
       this.createRegister("N", tbdy);
+      this.columns++;
       this.createRegister("Z", tbdy);
+      this.columns++;
     }
 
     if (cjdData.data != null) {
@@ -86,6 +91,7 @@ class Interface {
           tbdy,
           cjdData.memory[cjdData.data[index].mem]
         );
+        this.columns++;
       }
     }
     tbl.appendChild(tbdy);
@@ -138,15 +144,28 @@ class Interface {
    * @param {integer} value
    */
   createRegister(register, tbdy, value = undefined) {
-    var tr = document.createElement("tr");
+    var tr;
+    if (this.columns == 3) {
+      tr = document.createElement("tr");
+      this.columns = 0;
+    } else {
+      if (tbdy.children.length > 0) {
+        tr = tbdy.children[tbdy.children.length - 1];
+      } else {
+        tr = document.createElement("tr");
+      }
+    }
+
     var td = document.createElement("td");
     td.appendChild(document.createTextNode(`${register}: `));
+    td.className = "regLabel";
     tr.appendChild(td);
     var td = document.createElement("td");
     content = value == undefined ? compiler[register] : value;
     td.appendChild(document.createTextNode(content));
     td.id = "memPos_" + register;
-    td.className = "memSpace";
+    td.className = "regSpace";
+
     tr.appendChild(td);
     tbdy.appendChild(tr);
   }
