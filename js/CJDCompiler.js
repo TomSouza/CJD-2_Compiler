@@ -308,10 +308,11 @@ class CJDCompiler {
   RND() {
     var [operator] = arguments[0];
 
-    randValue = Math.floor(Math.random() * compiler.AC2) + compiler.AC;
-
+    var randValue = Math.floor(Math.random() * parseInt(compiler.AC2)) + parseInt(compiler.AC);
+    
     if (compiler.cjdData.data.hasOwnProperty(operator)) {
       compiler.cjdData.data[operator].val = randValue;
+      console.log
       compiler.cjdData.memory[compiler.cjdData.data[operator].mem] = randValue;
     } else {
       compiler.cjdData.memory[operator] = randValue;
@@ -331,7 +332,7 @@ class CJDCompiler {
       compiler.graphics.canvas.height
     );
 
-    compiler.PC += 2;
+    compiler.PC += 1;
   }
 
   /**

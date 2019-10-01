@@ -1,15 +1,15 @@
 .data
 ORIGIN_X: #126, #10
 ORIGIN_Y: #127, #10
-WIDTH: #128, #50
-HEIGHT: #129, #15
+WIDTH: #128, #15
+HEIGHT: #129, #5
 FINAL_X: #130, #0
 FINAL_Y: #131, #0
 CURR_X: #132, #0
 CURR_Y: #133, #0
 COL_R: DB #134, #0
 COL_G: DB #135, #0
-COL_B: DB #136, #255
+COL_B: DB #136, #0
 POS_1: DB #137, #0
 POS_2: DB #138, #0
 .enddata
@@ -38,31 +38,17 @@ LOOP_Y: LD CURR_Y
     ST CURR_Y
     SUB FINAL_Y
     JZ LOOP_X
-    LD CURR_X
-    JMP TEST
 DRAW: LD CURR_X
     LD2 CURR_Y
     POS
+    LD 0
+    LD2 255
+    RND COL_R
+    RND COL_G
+    RND COL_B
     LD COL_R
     LD2 COL_G
     LD3 COL_B
     PXL  
     JMP LOOP_Y
 FIM:  HALT
-TEST: LD CURR_X
-    SUB ORIGIN_X
-    SUB #1
-    JNZ LOOP_X
-    LD FINAL_X
-    SUB #1
-    SUB CURR_X
-    JZ LOOP_X
-    LD CURR_Y
-    SUB ORIGIN_Y
-    SUB #1
-    JNZ LOOP_Y
-    LD FINAL_Y
-    SUB #1
-    SUB CURR_Y
-    JZ LOOP_Y
-    JMP DRAW
