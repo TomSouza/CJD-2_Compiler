@@ -126,8 +126,11 @@ class CJDCompiler {
 
     if (compiler.cjdData.data.hasOwnProperty(load)) {
       compiler.AC = compiler.cjdData.data[load].val;
-    } else {
+    } else if (load.indexOf("#")) {
+      load = load.replace("#", "");
       compiler.AC = load;
+    } else {
+      compiler.AC = compiler.cjdData.memory[load];
     }
 
     compiler.PC += arguments[0].length + 1;
@@ -141,8 +144,11 @@ class CJDCompiler {
 
     if (compiler.cjdData.data.hasOwnProperty(load)) {
       compiler.AC2 = compiler.cjdData.data[load].val;
-    } else {
+    } else if (load.indexOf("#")) {
+      load = load.replace("#", "");
       compiler.AC2 = load;
+    } else {
+      compiler.AC2 = compiler.cjdData.memory[load];
     }
 
     compiler.PC += arguments[0].length + 1;
@@ -156,8 +162,11 @@ class CJDCompiler {
 
     if (compiler.cjdData.data.hasOwnProperty(load)) {
       compiler.AC3 = compiler.cjdData.data[load].val;
-    } else {
+    } else if (load.indexOf("#")) {
+      load = load.replace("#", "");
       compiler.AC3 = load;
+    } else {
+      compiler.AC3 = compiler.cjdData.memory[load];
     }
 
     compiler.PC += arguments[0].length + 1;
@@ -172,8 +181,12 @@ class CJDCompiler {
     if (compiler.cjdData.data.hasOwnProperty(add)) {
       compiler.AC =
         parseInt(compiler.AC) + parseInt(compiler.cjdData.data[add].val);
-    } else {
+    } else if (add.indexOf("#")) {
+      add = add.replace("#", "");
       compiler.AC = parseInt(compiler.AC) + parseInt(add);
+    } else {
+      compiler.AC =
+        parseInt(compiler.AC) + parseInt(compiler.cjdData.memory[add]);
     }
 
     compiler.PC += arguments[0].length + 1;
@@ -188,8 +201,12 @@ class CJDCompiler {
     if (compiler.cjdData.data.hasOwnProperty(sub)) {
       compiler.AC =
         parseInt(compiler.AC) - parseInt(compiler.cjdData.data[sub].val);
-    } else {
+    } else if (sub.indexOf("#")) {
+      sub = sub.replace("#", "");
       compiler.AC = parseInt(compiler.AC) - parseInt(sub);
+    } else {
+      compiler.AC =
+        parseInt(compiler.AC) - parseInt(compiler.cjdData.memory[sub]);
     }
 
     compiler.PC += arguments[0].length + 1;

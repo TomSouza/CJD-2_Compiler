@@ -70,9 +70,15 @@ class CJDReader {
       var lineParams = line.split(" ");
 
       for (let index = 0; index < lineParams.length; index++) {
-        this.memory[this.memoryCounter + index] = lineParams[index]
-          .replace("#", "")
-          .trim();
+        if (lineParams[index + 1] == "i") {
+          lineParams[index] += " i";
+        }
+        if (index == 2) {
+          lineParams.length -= 1;
+          continue;
+        }
+
+        this.memory[this.memoryCounter + index] = lineParams[index];
       }
 
       this.memoryCounter += lineParams.length;
