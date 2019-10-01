@@ -333,7 +333,6 @@ class CJDCompiler {
 
     if (compiler.cjdData.data.hasOwnProperty(operator)) {
       compiler.cjdData.data[operator].val = randValue;
-      console.log;
       compiler.cjdData.memory[compiler.cjdData.data[operator].mem] = randValue;
     } else {
       compiler.cjdData.memory[operator] = randValue;

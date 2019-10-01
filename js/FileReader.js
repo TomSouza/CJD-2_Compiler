@@ -7,7 +7,7 @@ class TxtReader {
     this.files = {
       "draw_Rectangle.txt": "draw_Rectangle",
       "draw_RectangleBorder.txt": "draw_RectangleBorder",
-      "desafio03.txt": "desafio_03"
+      "draw_RectangleRND.txt": "draw_RectangleRND"
     };
 
     for (var index in this.files) {

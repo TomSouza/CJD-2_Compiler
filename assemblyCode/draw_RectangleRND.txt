@@ -41,8 +41,8 @@ LOOP_Y: LD CURR_Y
 DRAW: LD CURR_X
     LD2 CURR_Y
     POS
-    LD 0
-    LD2 255
+    LD #0
+    LD2 #255
     RND COL_R
     RND COL_G
     RND COL_B
