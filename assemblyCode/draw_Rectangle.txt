@@ -1,18 +1,21 @@
 .data
-ORIGIN_X: #70, #0
-ORIGIN_Y: #70, #0
-WIDTH: #72, #0
-HEIGHT: #73, #0
-FINAL_X: #74, #0
-FINAL_Y: #75, #0
-CURR_X: #76, #0
-CURR_Y: #77, #0
-COL_R: DB #78, #255
-COL_G: DB #79, #0
-COL_B: DB #80, #0
+ORIGIN_X: #126, #10
+ORIGIN_Y: #127, #10
+WIDTH: #128, #50
+HEIGHT: #129, #15
+FINAL_X: #130, #0
+FINAL_Y: #131, #0
+CURR_X: #132, #0
+CURR_Y: #133, #0
+COL_R: DB #134, #0
+COL_G: DB #135, #0
+COL_B: DB #136, #255
+POS_1: DB #137, #0
+POS_2: DB #138, #0
 .enddata
 
 .code
+    CLR 
     LD ORIGIN_X
     ST CURR_X
     ADD WIDTH
@@ -23,18 +26,13 @@ COL_B: DB #80, #0
     ADD HEIGHT
     ADD #1
     ST FINAL_Y
-    LD CURR_X
-    LD2 CURR_Y
-    POS  
-    LD COL_R
-    LD2 COL_G
-    LD3 COL_B
-    PXL
 LOOP_X: LD CURR_X
     ADD #1
     ST CURR_X
     SUB FINAL_X
     JZ FIM
+    LD ORIGIN_Y
+    ST CURR_Y
 LOOP_Y: LD CURR_Y  
     ADD #1
     ST CURR_Y
