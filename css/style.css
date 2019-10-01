@@ -15,18 +15,25 @@ body {
 
 #mainRow {
   height: 90vh;
+  padding: 0 15px;
 }
 
 #script_reader {
-  width: 20%;
-  margin: 0 40%;
+  width: 80%;
+  margin: 15px 10%;
   font-size: 1em;
 }
 
 .run_buttons button {
-  width: 30%;
+  width: 40%;
   height: 45px;
   margin: 5px auto;
+}
+
+#memBody {
+  width: 100%;
+  max-width: 1920px;
+  margin-bottom: 25px;
 }
 
 #cjd_canvas {
@@ -56,10 +63,9 @@ body {
 
 .memContent {
   border: solid 1px;
-  width: 53px;
   text-align: center;
 }
 
 .actuaPointer {
-  background-color: cornsilk;
+  background-color: chartreuse;
 }
