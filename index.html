@@ -106,7 +106,7 @@
         do {
           compiler.Run();
           interface.Update(compiler);
-          await sleep(1000);
+          await sleep(250);
         } while (!compiler.interrupt);
       });
 

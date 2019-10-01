@@ -126,9 +126,12 @@ class CJDCompiler {
 
     if (compiler.cjdData.data.hasOwnProperty(load)) {
       compiler.AC = compiler.cjdData.data[load].val;
-    } else if (load.indexOf("#")) {
+    } else if (load.indexOf("#") > -1) {
       load = load.replace("#", "");
       compiler.AC = load;
+    } else if (load.indexOf("i") > -1) {
+      load = load.replace(", i", "");
+      compiler.AC = compiler.cjdData.memory[compiler.cjdData.memory[load]];
     } else {
       compiler.AC = compiler.cjdData.memory[load];
     }
@@ -144,9 +147,12 @@ class CJDCompiler {
 
     if (compiler.cjdData.data.hasOwnProperty(load)) {
       compiler.AC2 = compiler.cjdData.data[load].val;
-    } else if (load.indexOf("#")) {
+    } else if (load.indexOf("#") > -1) {
       load = load.replace("#", "");
       compiler.AC2 = load;
+    } else if (load.indexOf("i") > -1) {
+      load = load.replace(", i", "");
+      compiler.AC2 = compiler.cjdData.memory[compiler.cjdData.memory[load]];
     } else {
       compiler.AC2 = compiler.cjdData.memory[load];
     }
@@ -162,9 +168,12 @@ class CJDCompiler {
 
     if (compiler.cjdData.data.hasOwnProperty(load)) {
       compiler.AC3 = compiler.cjdData.data[load].val;
-    } else if (load.indexOf("#")) {
+    } else if (load.indexOf("#") > -1) {
       load = load.replace("#", "");
       compiler.AC3 = load;
+    } else if (load.indexOf("i") > -1) {
+      load = load.replace(", i", "");
+      compiler.AC3 = compiler.cjdData.memory[compiler.cjdData.memory[load]];
     } else {
       compiler.AC3 = compiler.cjdData.memory[load];
     }
@@ -181,9 +190,14 @@ class CJDCompiler {
     if (compiler.cjdData.data.hasOwnProperty(add)) {
       compiler.AC =
         parseInt(compiler.AC) + parseInt(compiler.cjdData.data[add].val);
-    } else if (add.indexOf("#")) {
+    } else if (add.indexOf("#") > -1) {
       add = add.replace("#", "");
       compiler.AC = parseInt(compiler.AC) + parseInt(add);
+    } else if (add.indexOf("i") > -1) {
+      add = add.replace(", i", "");
+      compiler.AC =
+        parseInt(compiler.AC) +
+        parseInt(compiler.cjdData.memory[compiler.cjdData.memory[add]]);
     } else {
       compiler.AC =
         parseInt(compiler.AC) + parseInt(compiler.cjdData.memory[add]);
@@ -201,9 +215,14 @@ class CJDCompiler {
     if (compiler.cjdData.data.hasOwnProperty(sub)) {
       compiler.AC =
         parseInt(compiler.AC) - parseInt(compiler.cjdData.data[sub].val);
-    } else if (sub.indexOf("#")) {
+    } else if (sub.indexOf("#") > -1) {
       sub = sub.replace("#", "");
       compiler.AC = parseInt(compiler.AC) - parseInt(sub);
+    } else if (sub.indexOf("i") > -1) {
+      sub = sub.replace(", i", "");
+      compiler.AC =
+        parseInt(compiler.AC) -
+        parseInt(compiler.cjdData.memory[compiler.cjdData.memory[sub]]);
     } else {
       compiler.AC =
         parseInt(compiler.AC) - parseInt(compiler.cjdData.memory[sub]);
@@ -308,11 +327,13 @@ class CJDCompiler {
   RND() {
     var [operator] = arguments[0];
 
-    var randValue = Math.floor(Math.random() * parseInt(compiler.AC2)) + parseInt(compiler.AC);
-    
+    var randValue =
+      Math.floor(Math.random() * parseInt(compiler.AC2)) +
+      parseInt(compiler.AC);
+
     if (compiler.cjdData.data.hasOwnProperty(operator)) {
       compiler.cjdData.data[operator].val = randValue;
-      console.log
+      console.log;
       compiler.cjdData.memory[compiler.cjdData.data[operator].mem] = randValue;
     } else {
       compiler.cjdData.memory[operator] = randValue;
