@@ -1,17 +1,15 @@
 .data
-ORIGIN_X: #126, #10
-ORIGIN_Y: #127, #10
-WIDTH: #128, #50
-HEIGHT: #129, #15
-FINAL_X: #130, #0
-FINAL_Y: #131, #0
-CURR_X: #132, #0
-CURR_Y: #133, #0
-COL_R: DB #134, #0
-COL_G: DB #135, #0
-COL_B: DB #136, #255
-POS_1: DB #137, #0
-POS_2: DB #138, #0
+ORIGIN_X: #140, #10
+ORIGIN_Y: #141, #10
+WIDTH: #142, #50
+HEIGHT: #143, #15
+FINAL_X: #144, #0
+FINAL_Y: #145, #0
+CURR_X: #146, #0
+CURR_Y: #147, #0
+COL_R: DB #148, #0
+COL_G: DB #149, #255
+COL_B: DB #150, #0
 .enddata
 
 .code
@@ -26,43 +24,64 @@ POS_2: DB #138, #0
     ADD HEIGHT
     ADD #1
     ST FINAL_Y
-LOOP_X: LD CURR_X
-    ADD #1
-    ST CURR_X
+TOP: LD CURR_X
     SUB FINAL_X
-    JZ FIM
-    LD ORIGIN_Y
-    ST CURR_Y
-LOOP_Y: LD CURR_Y  
-    ADD #1
-    ST CURR_Y
-    SUB FINAL_Y
-    JZ LOOP_X
+    JZ RIGHT
     LD CURR_X
-    JMP TEST
-DRAW: LD CURR_X
     LD2 CURR_Y
     POS
     LD COL_R
     LD2 COL_G
     LD3 COL_B
-    PXL  
-    JMP LOOP_Y
-FIM:  HALT
-TEST: LD CURR_X
-    SUB ORIGIN_X
-    SUB #1
-    JNZ LOOP_X
-    LD FINAL_X
-    SUB #1
-    SUB CURR_X
-    JZ LOOP_X
+    PXL
+    LD CURR_X
+    ADD #1
+    ST CURR_X
+    JMP TOP
+RIGHT: LD CURR_Y 
+    SUB FINAL_Y
+    JZ L_S
+    LD CURR_X
+    LD2 CURR_Y
+    POS
+    LD COL_R
+    LD2 COL_G
+    LD3 COL_B
+    PXL
     LD CURR_Y
-    SUB ORIGIN_Y
-    SUB #1
-    JNZ LOOP_Y
-    LD FINAL_Y
-    SUB #1
-    SUB CURR_Y
-    JZ LOOP_Y
-    JMP DRAW
+    ADD #1
+    ST CURR_Y
+    JMP RIGHT
+L_S: LD ORIGIN_Y
+    ST CURR_Y
+    LD ORIGIN_X
+    ST CURR_X
+LEFT: LD CURR_Y 
+    SUB FINAL_Y
+    JZ BOT
+    LD CURR_X
+    LD2 CURR_Y
+    POS
+    LD COL_R
+    LD2 COL_G
+    LD3 COL_B
+    PXL
+    LD CURR_Y
+    ADD #1
+    ST CURR_Y
+    JMP LEFT
+BOT: LD CURR_X
+    SUB FINAL_X
+    JZ END
+    LD CURR_X
+    LD2 CURR_Y
+    POS
+    LD COL_R
+    LD2 COL_G
+    LD3 COL_B
+    PXL
+    LD CURR_X
+    ADD #1
+    ST CURR_X
+    JMP BOT
+END: HALT
