@@ -119,7 +119,7 @@ class CJDCompiler {
   }
 
   getPointerValue(load) {
-    load = load.replace(", i", "");
+    load = load.replace(",i", "");
 
     if (compiler.cjdData.data.hasOwnProperty(load)) {
       return compiler.cjdData.memory[compiler.cjdData.data[load].val];
@@ -200,7 +200,6 @@ class CJDCompiler {
       add = add.replace("#", "");
       compiler.AC = parseInt(compiler.AC) + parseInt(add);
     } else if (add.indexOf("i") > -1) {
-      add = add.replace(", i", "");
       compiler.AC =
         parseInt(compiler.AC) + parseInt(compiler.getPointerValue(add));
     } else {
@@ -224,7 +223,6 @@ class CJDCompiler {
       sub = sub.replace("#", "");
       compiler.AC = parseInt(compiler.AC) - parseInt(sub);
     } else if (sub.indexOf("i") > -1) {
-      sub = sub.replace(", i", "");
       compiler.AC =
         parseInt(compiler.AC) - parseInt(compiler.getPointerValue(sub));
     } else {

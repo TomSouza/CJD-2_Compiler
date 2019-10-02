@@ -16,7 +16,7 @@ LOOP: LD QUANT
     SUB #1
     JZ END
     ST QUANT
-    LD POINTER, i
+    LD POINTER,i
     ADD CONST
     LD POINTER
     ADD #1
