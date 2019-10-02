@@ -118,6 +118,15 @@ class CJDCompiler {
     compiler.PC += arguments[0].length + 1;
   }
 
+  getPointerValue(load) {
+    load = load.replace(", i", "");
+
+    if (compiler.cjdData.data.hasOwnProperty(load)) {
+      return compiler.cjdData.memory[compiler.cjdData.data[load].val];
+    }
+    return compiler.cjdData.memory[compiler.cjdData.memory[load]];
+  }
+
   /**
    * Carrega para o AC o valor recebido
    */
@@ -130,8 +139,7 @@ class CJDCompiler {
       load = load.replace("#", "");
       compiler.AC = load;
     } else if (load.indexOf("i") > -1) {
-      load = load.replace(", i", "");
-      compiler.AC = compiler.cjdData.memory[compiler.cjdData.memory[load]];
+      compiler.AC = compiler.getPointerValue(load);
     } else {
       compiler.AC = compiler.cjdData.memory[load];
     }
@@ -151,8 +159,7 @@ class CJDCompiler {
       load = load.replace("#", "");
       compiler.AC2 = load;
     } else if (load.indexOf("i") > -1) {
-      load = load.replace(", i", "");
-      compiler.AC2 = compiler.cjdData.memory[compiler.cjdData.memory[load]];
+      compiler.AC2 = compiler.getPointerValue(load);
     } else {
       compiler.AC2 = compiler.cjdData.memory[load];
     }
@@ -172,8 +179,7 @@ class CJDCompiler {
       load = load.replace("#", "");
       compiler.AC3 = load;
     } else if (load.indexOf("i") > -1) {
-      load = load.replace(", i", "");
-      compiler.AC3 = compiler.cjdData.memory[compiler.cjdData.memory[load]];
+      compiler.AC3 = compiler.getPointerValue(load);
     } else {
       compiler.AC3 = compiler.cjdData.memory[load];
     }
@@ -196,8 +202,7 @@ class CJDCompiler {
     } else if (add.indexOf("i") > -1) {
       add = add.replace(", i", "");
       compiler.AC =
-        parseInt(compiler.AC) +
-        parseInt(compiler.cjdData.memory[compiler.cjdData.memory[add]]);
+        parseInt(compiler.AC) + parseInt(compiler.getPointerValue(add));
     } else {
       compiler.AC =
         parseInt(compiler.AC) + parseInt(compiler.cjdData.memory[add]);
@@ -221,8 +226,7 @@ class CJDCompiler {
     } else if (sub.indexOf("i") > -1) {
       sub = sub.replace(", i", "");
       compiler.AC =
-        parseInt(compiler.AC) -
-        parseInt(compiler.cjdData.memory[compiler.cjdData.memory[sub]]);
+        parseInt(compiler.AC) - parseInt(compiler.getPointerValue(sub));
     } else {
       compiler.AC =
         parseInt(compiler.AC) - parseInt(compiler.cjdData.memory[sub]);
